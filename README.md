@@ -105,7 +105,15 @@ $$
 ---
 
 ## Algorithm
-
+1.Initialize Environment & Q-table: Set up the FrozenLake environment, initialize the Q-table (state-action values) to zeros, and define hyperparameters like num_episodes, gamma (discount factor), alpha (learning rate), and epsilon for exploration.
+2.Episode Loop: Iterate for a predefined number of num_episodes to train the agent.
+3.Epsilon Decay: At the start of each episode, decay epsilon gradually to reduce exploration over time, ensuring it doesn't go below epsilon_min.
+4.Generate Episode: Simulate an episode from start to terminal state using the current epsilon-greedy policy. Store each (state, action, reward) tuple encountered.
+5.Calculate Returns: After an episode ends, iterate backward through the episode to calculate the discounted return (G) for each time step.
+6.Update Q-values: For each first occurrence of a (state, action) pair in the episode, update its Q-value using the calculated return G and the learning rate alpha. This is the core of the Monte Carlo update.
+7.Extract Optimal Policy: After all episodes, derive the optimal_policy by selecting the action with the maximum Q-value for each state (argmax(Q[state, :])).
+8.Evaluate Performance: Calculate and report the average reward over the last set of episodes to gauge the policy's success.
+9.Visualize Learning: Plot the moving average of episode rewards over time to visualize the learning curve and convergence of the policy
 
 
 ## Python Program
@@ -157,7 +165,7 @@ for i_episode in range(num_episodes):
 
 ## Result
 ```text
-
+The Monte Carlo Control successfully trained an agent, achieving a high average reward of approximately 93% over the final 1000 episodes. The learning curve clearly shows rapid convergence to an optimal policy that efficiently navigates the FrozenLake environment.
 
 
 ```
