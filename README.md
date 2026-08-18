@@ -154,8 +154,10 @@ for i_episode in range(num_episodes):
 ---
 
 ## Output
-
+### num_episodes = 20000
 <img width="445" height="660" alt="image" src="https://github.com/user-attachments/assets/d256b6a9-d421-4393-b1d6-46a6bcbfcc84" />
+### num_episodes = 5000
+<img width="488" height="672" alt="image" src="https://github.com/user-attachments/assets/206a8c7b-dc6f-43bb-b997-39fc727bb93a" />
 
 ---
 
