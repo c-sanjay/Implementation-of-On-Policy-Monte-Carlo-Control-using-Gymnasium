@@ -31,9 +31,15 @@ pip install gymnasium numpy matplotlib
 
 ## Environment Description
 
+```
+env = gym.make('FrozenLake-v1', is_slippery=False)
 
+n_states = env.observation_space.n
+n_actions = env.action_space.n
 
-
+print(f"Number of states: {n_states}")
+print(f"Number of actions: {n_actions}")
+```
 
 
 
@@ -109,8 +115,34 @@ $$
 
 
 ```python
-# Write your code here
+# -------------------------------------------------
+# Monte Carlo Control
+# -------------------------------------------------
 
+epsilon = epsilon_start
+
+for i_episode in range(num_episodes):
+    episode = generate_episode(epsilon)
+    
+    # Total reward for the episode
+    total_reward = sum([reward for state, action, reward in episode])
+    episode_rewards.append(total_reward)
+
+    # Update Q-table
+    G = 0  
+    for t in reversed(range(len(episode))):
+        state, action, reward = episode[t]
+        G = reward + gamma * G
+
+        first_occurrence = next(i for i, (s, a, r) in enumerate(episode) if s == state and a == action)
+        if first_occurrence == t:
+
+            Q[state, action] = Q[state, action] + alpha * (G - Q[state, action])
+
+    epsilon = max(epsilon_min, epsilon * epsilon_decay)
+
+    if (i_episode + 1) % 1000 == 0:
+        print(f"Episode {i_episode + 1}/{num_episodes}, Epsilon: {epsilon:.4f}, Avg Reward: {np.mean(episode_rewards[-1000:]):.2f}")
 
 
 ```
@@ -119,28 +151,7 @@ $$
 
 ## Output
 
-```text
-Final Q-table:
-
-
-
-Estimated State-Value Function:
-
-
-
-
-
-
-
-Learned Policy:
-
-
-
-
-
-Average reward over last 1000 episodes: 
-```
-
+<img width="445" height="660" alt="image" src="https://github.com/user-attachments/assets/d256b6a9-d421-4393-b1d6-46a6bcbfcc84" />
 
 ---
 
@@ -155,7 +166,7 @@ Average reward over last 1000 episodes:
 ## Inference
 ```text
 
-
+The Monte Carlo Control experiment successfully trained an agent to navigate the FrozenLake environment. Over 20,000 episodes, the agent's average reward steadily increased, achieving a high success rate of approximately 91.9% in the last 1000 episodes. This demonstrates that off-policy Monte Carlo Control, using an epsilon-greedy exploration strategy, effectively learned an optimal greedy policy to guide the agent to the goal, avoiding holes, and achieving consistent positive rewards.
 
 ```
 
