@@ -32,13 +32,9 @@ pip install gymnasium numpy matplotlib
 ## Environment Description
 
 ```
-env = gym.make('FrozenLake-v1', is_slippery=False)
+Environment: FrozenLake-v1
 
-n_states = env.observation_space.n
-n_actions = env.action_space.n
-
-print(f"Number of states: {n_states}")
-print(f"Number of actions: {n_actions}")
+The project utilizes the FrozenLake-v1 environment from Gymnasium, a classic grid-world reinforcement learning problem. In this setup, the agent navigates a 4x4 grid. The objective is to move from a starting position ('S') to a goal ('G') while avoiding frozen holes ('H'). For simplicity and to focus on the core Monte Carlo Control algorithm, the is_slippery parameter is set to False, meaning the agent's actions deterministically move it in the chosen direction without random slips. This provides a clear, discrete state and action space suitable for demonstrating value-based learning methods.
 ```
 
 
